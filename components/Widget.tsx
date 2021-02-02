@@ -1,6 +1,6 @@
 import React from 'react';
 import {ThemeProvider} from 'theme-ui';
-import ChatWindow from './ChatWindow';
+import ChatWindow from './Voiceflow';
 import {CustomerMetadata} from '../helpers/api';
 import {isDev} from '../helpers/config';
 import {setupPostMessageHandlers} from '../helpers/utils';
@@ -141,29 +141,23 @@ class Wrapper extends React.Component<Props, State> {
       customerId,
       greeting,
       companyName,
-      agentAvailableText,
-      agentUnavailableText,
       title = 'Welcome!',
       subtitle = 'How can we help you?',
       newMessagePlaceholder = 'Start typing...',
       emailInputPlaceholder = 'Enter your email',
       newMessagesNotificationText = 'View new messages',
       primaryColor = '1890ff',
-      baseUrl = 'https://app.papercups.io',
+      baseUrl = '',
       requireEmailUpfront = '0',
-      showAgentAvailability = '0',
       closeable = '1',
       mobile = '0',
-      metadata = '{}',
       version = '1.0.0',
     } = config;
 
     const shouldRequireEmail = !!Number(requireEmailUpfront);
     const isMobile = !!Number(mobile);
     const isCloseable = !!Number(closeable);
-    const shouldHideAvailability = !!Number(showAgentAvailability);
     const theme = getThemeConfig({primary: primaryColor});
-    const customer = parseCustomerMetadata(metadata);
 
     return (
       <ThemeProvider theme={theme}>
@@ -177,14 +171,10 @@ class Wrapper extends React.Component<Props, State> {
           newMessagePlaceholder={newMessagePlaceholder}
           emailInputPlaceholder={emailInputPlaceholder}
           newMessagesNotificationText={newMessagesNotificationText}
-          agentAvailableText={agentAvailableText}
-          agentUnavailableText={agentUnavailableText}
-          showAgentAvailability={shouldHideAvailability}
           shouldRequireEmail={shouldRequireEmail}
           isMobile={isMobile}
           isCloseable={isCloseable}
           baseUrl={baseUrl}
-          customer={customer}
           version={version}
         />
       </ThemeProvider>
