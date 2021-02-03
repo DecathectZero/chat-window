@@ -2,15 +2,15 @@
   "compilerOptions": {
     "target": "es5",
     "moduleResolution": "node",
-    "module": "commonjs",
+    "module": "esnext",
     "declaration": false,
     "sourceMap": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "allowJs": true,
-    "isolatedModules": false,
-    "jsx": "react",
+    "isolatedModules": true,
+    "jsx": "preserve",
     /* Strictness Checks */
     "alwaysStrict": true,
     "noImplicitAny": true,
@@ -33,7 +33,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true
   },
   "compileOnSave": false,
   "exclude": ["node_modules"],

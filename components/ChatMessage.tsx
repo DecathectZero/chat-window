@@ -1,10 +1,10 @@
 import React from 'react';
-import {Box, Flex, Text} from 'theme-ui';
+import { Box, Flex, Text } from 'theme-ui';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import BotIcon from './BotIcon';
 import ChatMessageBody from './ChatMessageBody';
-import {Message, User} from '../helpers/utils';
+import { Message, User } from '../helpers/utils';
 
 dayjs.extend(utc);
 
@@ -32,21 +32,13 @@ const getAgentIdentifier = (user?: User) => {
     return 'Agent';
   }
 
-  const {display_name, full_name, email} = user;
+  const { display_name, full_name, email } = user;
   const [username] = email.split('@');
 
   return display_name || full_name || username || 'Agent';
 };
 
-const SenderAvatar = ({
-  name,
-  user,
-  isBot,
-}: {
-  name: string;
-  user?: User;
-  isBot?: boolean;
-}) => {
+const SenderAvatar = ({ name, user, isBot }: { name: string; user?: User; isBot?: boolean }) => {
   const profilePhotoUrl = user && user.profile_photo_url;
 
   if (profilePhotoUrl) {
@@ -81,11 +73,7 @@ const SenderAvatar = ({
         color: '#fff',
       }}
     >
-      {isBot && name.toLowerCase() === 'bot' ? (
-        <BotIcon fill="background" height={16} width={16} />
-      ) : (
-        name.slice(0, 1).toUpperCase()
-      )}
+      {isBot && name.toLowerCase() === 'bot' ? <BotIcon fill="background" height={16} width={16} /> : name.slice(0, 1).toUpperCase()}
     </Flex>
   );
 };
@@ -98,14 +86,8 @@ type Props = {
   shouldDisplayTimestamp?: boolean;
 };
 
-const ChatMessage = ({
-  message,
-  isMe,
-  companyName,
-  isLastInGroup,
-  shouldDisplayTimestamp,
-}: Props) => {
-  const {body, created_at, user, type} = message;
+const ChatMessage = ({ message, isMe, companyName, isLastInGroup, shouldDisplayTimestamp }: Props) => {
+  const { body, created_at, user, type } = message;
   const created = created_at ? dayjs.utc(created_at) : null;
   const timestamp = created ? formatRelativeTime(created) : null;
   const isBot = type === 'bot';
@@ -115,7 +97,7 @@ const ChatMessage = ({
   if (isMe) {
     return (
       <Box pr={0} pl={4} pb={isLastInGroup ? 3 : 2}>
-        <Flex sx={{justifyContent: 'flex-end'}}>
+        <Flex sx={{ justifyContent: 'flex-end' }}>
           <ChatMessageBody
             className="Text--white"
             sx={{
@@ -127,10 +109,8 @@ const ChatMessage = ({
           />
         </Flex>
         {shouldDisplayTimestamp && (
-          <Flex m={1} sx={{justifyContent: 'flex-end'}}>
-            <Text sx={{color: 'gray'}}>
-              {timestamp ? `Sent ${timestamp}` : 'Sending...'}
-            </Text>
+          <Flex m={1} sx={{ justifyContent: 'flex-end' }}>
+            <Text sx={{ color: 'gray' }}>{timestamp ? `Sent ${timestamp}` : 'Sending...'}</Text>
           </Flex>
         )}
       </Box>
@@ -139,7 +119,7 @@ const ChatMessage = ({
 
   return (
     <Box pr={4} pl={0} pb={isLastInGroup ? 3 : 2}>
-      <Flex sx={{justifyContent: 'flex-start', alignItems: 'center'}}>
+      <Flex sx={{ justifyContent: 'flex-start', alignItems: 'center' }}>
         <SenderAvatar name={identifer} user={user} isBot={isBot} />
 
         <ChatMessageBody
@@ -152,45 +132,12 @@ const ChatMessage = ({
         />
       </Flex>
       {shouldDisplayTimestamp && (
-        <Flex m={1} sx={{justifyContent: 'flex-start'}}>
-          <Text sx={{color: 'gray'}}>
+        <Flex m={1} sx={{ justifyContent: 'flex-start' }}>
+          <Text sx={{ color: 'gray' }}>
             {identifer} · Sent {timestamp}
           </Text>
         </Flex>
       )}
-    </Box>
-  );
-};
-
-export const PopupChatMessage = ({message}: Props) => {
-  const {body, created_at, user, type} = message;
-  const created = created_at ? dayjs.utc(created_at) : null;
-  const timestamp = created ? formatRelativeTime(created) : null;
-  const isBot = type === 'bot';
-  const identifer = isBot ? 'Bot' : getAgentIdentifier(user);
-
-  return (
-    <Box pr={0} pl={0} pb={2}>
-      <Flex
-        sx={{justifyContent: 'flex-start', alignItems: 'center', width: '100%'}}
-      >
-        <SenderAvatar name={identifer} user={user} isBot={isBot} />
-
-        <ChatMessageBody
-          sx={{
-            px: 3,
-            py: 3,
-            color: 'text',
-            bg: 'background',
-            whiteSpace: 'pre-wrap',
-            flex: 1,
-            border: '1px solid rgb(245, 245, 245)',
-            boxShadow: 'rgba(35, 47, 53, 0.09) 0px 2px 8px 0px',
-            maxWidth: '84%',
-          }}
-          content={body}
-        />
-      </Flex>
     </Box>
   );
 };

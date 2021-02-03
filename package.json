@@ -19,9 +19,12 @@
       "prettier --write"
     ]
   },
+  "prettier": "@voiceflow/prettier-config",
   "dependencies": {
     "@papercups-io/chat-widget": "^1.0.6",
-    "@voiceflow/runtime-client-js": "^1.0.1",
+    "@voiceflow/general-types": "^1.25.2",
+    "@voiceflow/prettier-config": "^1.0.5",
+    "@voiceflow/runtime-client-js": "^1.3.0",
     "antd": "^4.4.2",
     "framer-motion": "^2.3.0",
     "next": "9.4.4",
