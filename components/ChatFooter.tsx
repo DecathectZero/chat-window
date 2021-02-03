@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Button, Flex, Input, Textarea} from 'theme-ui';
+import { Box, Button, Flex, Input, Textarea } from 'theme-ui';
 import SendIcon from './SendIcon';
 
 const ChatFooter = ({
@@ -17,7 +17,7 @@ const ChatFooter = ({
 }) => {
   const [message, setMessage] = React.useState('');
   const [email, setEmail] = React.useState('');
-  const messageInput = React.useRef(null);
+  const messageInput = React.useRef<HTMLTextAreaElement>(null);
 
   const hasValidEmail = email && email.length > 5 && email.indexOf('@') !== -1;
 
@@ -30,11 +30,8 @@ const ChatFooter = ({
   };
 
   const handleSetEmail = (e?: any) => {
-    e && e.preventDefault();
-
-    if (messageInput.current) {
-      messageInput.current.focus();
-    }
+    e?.preventDefault();
+    messageInput.current?.focus();
   };
 
   const handleSendMessage = (e?: any) => {
@@ -46,7 +43,7 @@ const ChatFooter = ({
   };
 
   const handleKeyDown = (e: any) => {
-    const {key, shiftKey} = e;
+    const { key, shiftKey } = e;
 
     if (!shiftKey && key === 'Enter') {
       handleSendMessage(e);
@@ -57,20 +54,15 @@ const ChatFooter = ({
     <Box>
       <form onSubmit={handleSetEmail}>
         {shouldRequireEmail && (
-          <Box py={1} sx={{borderBottom: '1px solid rgb(230, 230, 230)'}}>
-            <Input
-              sx={{variant: 'styles.input.transparent'}}
-              placeholder={emailInputPlaceholder}
-              value={email}
-              onChange={handleEmailChange}
-            />
+          <Box py={1} sx={{ borderBottom: '1px solid rgb(230, 230, 230)' }}>
+            <Input sx={{ variant: 'styles.input.transparent' }} placeholder={emailInputPlaceholder} value={email} onChange={handleEmailChange} />
           </Box>
         )}
       </form>
 
       <form onSubmit={handleSendMessage}>
-        <Flex sx={{alignItems: 'center'}} py={2}>
-          <Box mr={3} sx={{flex: 1}}>
+        <Flex sx={{ alignItems: 'center' }} py={2}>
+          <Box mr={3} sx={{ flex: 1 }}>
             <Textarea
               sx={{
                 fontFamily: 'body',

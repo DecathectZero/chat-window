@@ -1,10 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import Widget from '../components/Widget';
 
 export default function Home() {
-  const {query} = useRouter();
+  const { query } = useRouter();
 
   return (
     <>
@@ -15,7 +15,7 @@ export default function Home() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
-      {query.accountId ? <Widget config={query} /> : null}
+      {query.versionID ? <Widget config={query} /> : null}
     </>
   );
 }
