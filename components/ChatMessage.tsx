@@ -106,6 +106,7 @@ const ChatMessage = ({ message, isMe, companyName, isLastInGroup, shouldDisplayT
               whiteSpace: 'pre-wrap',
             }}
             content={body}
+            attachments={attachments}
           />
         </Flex>
         {shouldDisplayTimestamp && (
@@ -129,6 +130,7 @@ const ChatMessage = ({ message, isMe, companyName, isLastInGroup, shouldDisplayT
             whiteSpace: 'pre-wrap',
           }}
           content={body}
+          attachments={attachments}
         />
       </Flex>
       {shouldDisplayTimestamp && (
